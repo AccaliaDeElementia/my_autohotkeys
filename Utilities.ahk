@@ -39,7 +39,8 @@ flashActiveWindow(count=3) {
 }
 
 cycleWindows(hWnd, nextHWnd, launchPath) {
-    if (hWnd > 0) {
+    GetKeyState, controlState, Control
+    if (hWnd > 0 && controlState != "D") {
         WinGet, activeWin, ID, A
         if (hWnd = activeWin AND nextHWnd > 1) {
             WinSet, Bottom,, A

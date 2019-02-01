@@ -1,6 +1,11 @@
 #Include %A_ScriptDir%
 #Include Utilities.ahk
 
-WinGet, hWnd, LIST, ahk_exe code.exe
-appPath = "C:\Users\accal\AppData\Local\Programs\Microsoft VS Code\code.exe"
-cycleWindows(hwnd1, hwnd2, appPath)
+SetTitleMatchMode, RegEx
+#Include %A_ScriptDir%
+#Include Utilities.ahk
+
+WinGetClass, title, A
+MsgBox, % "'" . title . "' Explorer Windows"
+;appPath = "C:\Program Files\internet explorer\iexplore.exe"
+;cycleWindows(hwnd1, hwnd2, appPath)
