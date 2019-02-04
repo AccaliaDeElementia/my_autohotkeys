@@ -1,3 +1,4 @@
+; Use Sanity
 
 ; Utilities for being awesome
 getMonitorForPoint(x, y, default = 1) {
@@ -38,18 +39,29 @@ flashActiveWindow(count=3) {
     Return DllCall( "FlashWindowEx", UInt, &FW )
 }
 
-cycleWindows(hWnd, nextHWnd, launchPath) {
+cycleWindows(hWnd, nextHWnd, lastHWnd, launchPath) {
     GetKeyState, controlState, Control
+    GetKeyState, shiftState, Shift
     if (hWnd > 0 && controlState != "D") {
         WinGet, activeWin, ID, A
-        if (hWnd = activeWin AND nextHWnd > 1) {
-            WinSet, Bottom,, A
-            WinActivate, ahk_id %nextHWnd%
+        if (hWnd = activeWin AND nextHWnd > 0) {
+            if (shiftState = "D" AND lastHWnd > 0) {
+                ; Cycle backwards, bring bottom to top
+                WinActivate, ahk_id %lastHWnd%
+            } else {
+                ; Cycle Forwards, Send top to bottom and bring next to top
+                WinSet, Bottom,, A
+                WinActivate, ahk_id %nextHWnd%
+            }
         } else {
+            ; target hWnd not active, bring it to the front
             WinActivate, ahk_id %hWnd%
         }
-        res := flashActiveWindow()
+        ; This doesn;t seem to work, but try to flash the window to make it easier to find on multimonitor setups
+        flashActiveWindow()
     } else {
+        ; Not running or chose to launch new.
+        ; Launch the sucker!
         Run, %launchPath%
     }
 }
