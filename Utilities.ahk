@@ -1,5 +1,4 @@
 ; Use Sanity
-
 ; Utilities for being awesome
 getMonitorForPoint(x, y, default = 1) {
     SysGet, monitorCount, MonitorCount
@@ -44,8 +43,8 @@ cycleWindows(hWnd, nextHWnd, lastHWnd, launchPath) {
     GetKeyState, shiftState, Shift
     if (hWnd > 0 && controlState != "D") {
         WinGet, activeWin, ID, A
-        if (hWnd = activeWin AND nextHWnd > 0) {
-            if (shiftState = "D" AND lastHWnd > 0) {
+        if (hWnd = activeWin AND nextHWnd > 1) {
+            if (shiftState = "D" AND lastHWnd > 1) {
                 ; Cycle backwards, bring bottom to top
                 WinActivate, ahk_id %lastHWnd%
             } else {
