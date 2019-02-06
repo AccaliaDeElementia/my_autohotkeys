@@ -38,7 +38,7 @@ flashActiveWindow(count=3) {
     Return DllCall( "FlashWindowEx", UInt, &FW )
 }
 
-cycleWindows(hWnd, nextHWnd, lastHWnd, launchPath) {
+cycleWindows(hWnd, nextHWnd, lastHWnd, launchPath, params = "") {
     GetKeyState, controlState, Control
     GetKeyState, shiftState, Shift
     if (hWnd > 0 && controlState != "D") {
@@ -61,6 +61,6 @@ cycleWindows(hWnd, nextHWnd, lastHWnd, launchPath) {
     } else {
         ; Not running or chose to launch new.
         ; Launch the sucker!
-        Run, %launchPath%
+        Run, %launchPath% %params%
     }
 }
