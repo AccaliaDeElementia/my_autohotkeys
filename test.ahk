@@ -1,7 +1,4 @@
+;MsgBox, %A_MyDocuments%
 
-WinGet, thing, ID, ahk_exe mumble.exe
-if WinExist (ahk_exe mumble.exe) {
-Send, {F24}
-} else {
-Run, C:\Program Files (x86)\Mumble\mumble.exe
-}
+value = (Get-Clipboard -Format Image).Save('%A_MyDocuments%\Snip-%A_YYYY%-%A_MM%-%A_DD%T%A_Hour%-%A_Min%-%A_Sec%.%A_MSec%.png')
+MsgBox, %value%
