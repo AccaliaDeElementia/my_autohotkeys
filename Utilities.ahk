@@ -38,7 +38,41 @@ flashActiveWindow(count=3) {
     Return DllCall( "FlashWindowEx", UInt, &FW )
 }
 
-cycleWindows(hWnd, nextHWnd, lastHWnd, launchPath, params = "") {
+cycleWindows(appPath, appArgs = "", winTitle = "", winText = "", excludeTitle = "", excludeText = "") {
+    ; Get matching windows
+    WinGet, hWnd, LIST, %winTitle%, %winText%, %excludeTitle%, %excludeText%
+    ; Extract the last Window Id (we don't what index it'll be at first)
+    hWndLast := hWnd%hWnd%
+    ; hold Control to force launching app
+    GetKeyState, controlState, Control
+    ; Hold shift to cycle through the windows bottom to top
+    GetKeyState, shiftState, Shift
+    if (hWnd1 > 0 && controlState != "D") {
+        ; Fetch the active window
+        WinGet, activeWin, ID, A
+        if (hWnd1 = activeWin AND hWnd2 > 1) {
+            ; App is active, cycle through windows
+            if (shiftState = "D" AND hWndLast > 1) {
+                ; Cycle backwards, bring bottom to top
+                WinActivate, ahk_id %hWndLast%
+            } else {
+                ; Cycle Forwards, Send top to bottom and bring next to top
+                WinSet, Bottom,, A
+                WinActivate, ahk_id %hWnd2%
+            }
+        } else {
+            ; App not active, bring it to the front
+            WinActivate, ahk_id %hWnd1%
+        }
+        ; This doesn;t seem to work, but try to flash the window to make it easier to find on multimonitor setups
+        flashActiveWindow()
+    } else {
+        ; Not running or chose to launch new.
+        ; Launch the sucker!
+        Run, %appPath% %appArgs%
+    }
+}
+cycleWindowsOld(hWnd, nextHWnd, lastHWnd, launchPath, params = "") {
     GetKeyState, controlState, Control
     GetKeyState, shiftState, Shift
     if (hWnd > 0 && controlState != "D") {

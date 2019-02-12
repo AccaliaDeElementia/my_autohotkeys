@@ -1,7 +1,4 @@
 #Include %A_ScriptDir%
 #Include Utilities.ahk
 
-WinGet, hWnd, LIST, ahk_exe OUTLOOK.EXE
-WinGet, hWndLast, IDLast, ahk_exe OUTLOOK.EXE
-appPath = "C:\Program Files\Microsoft Office\root\Office16\OUTLOOK.EXE"
-cycleWindows(hwnd1, hwnd2, hWndLast, appPath)
+cycleWindows("C:\Program Files\Microsoft Office\root\Office16\OUTLOOK.EXE",, "ahk_exe OUTLOOK.EXE")

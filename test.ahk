@@ -1,4 +1,5 @@
-;MsgBox, %A_MyDocuments%
+#Include %A_ScriptDir%
+#Include Utilities.ahk
+SetTitleMatchMode, RegEx
 
-value = (Get-Clipboard -Format Image).Save('%A_MyDocuments%\Snip-%A_YYYY%-%A_MM%-%A_DD%T%A_Hour%-%A_Min%-%A_Sec%.%A_MSec%.png')
-MsgBox, %value%
+cycleWindows("C:\Program Files (x86)\Google\Chrome\Application\chrome.exe",, "Google Chrome$ ahk_exe chrome.exe")
