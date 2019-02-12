@@ -3,7 +3,7 @@
 
 SetTitleMatchMode, RegEx
 
-WinGet, hWnd, LIST, ahk_exe chrome.exe, , ^DevTools
-WinGet, hWndLast, IDLast, ahk_exe chrome.exe, , ^DevTools
+WinGet, hWnd, LIST, Google Chrome$ ahk_exe chrome.exe
+WinGet, hWndLast, IDLast, Google Chrome$ ahk_exe chrome.exe
 appPath = "C:\Program Files (x86)\Google\Chrome\Application\chrome.exe"
 cycleWindows(hwnd1, hwnd2, hWndLast, appPath)
