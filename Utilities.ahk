@@ -27,14 +27,14 @@ FlashWindow(hWnd := 0, dwFlags := 3, uCount := 5, dwTimeout := 0) {
 
 ; Cycle through the windows in an application
 cycleWindows(appPath, appArgs = "", winTitle = "", winText = "", excludeTitle = "", excludeText = "") {
+    ; Hold Control to force launching app
+    GetKeyState, controlState, Control
+    ; Hold shift to cycle through the windows bottom to top
+    GetKeyState, shiftState, Shift
     ; Get matching windows
     WinGet, hWnd, LIST, %winTitle%, %winText%, %excludeTitle%, %excludeText%
     ; Extract the last Window Id (we don't what index it'll be at first)
     hWndLast := hWnd%hWnd%
-    ; hold Control to force launching app
-    GetKeyState, controlState, Control
-    ; Hold shift to cycle through the windows bottom to top
-    GetKeyState, shiftState, Shift
     if (hWnd1 > 0 && controlState != "D") {
         ; Fetch the active window
         WinGet, activeWin, ID, A
@@ -56,15 +56,19 @@ cycleWindows(appPath, appArgs = "", winTitle = "", winText = "", excludeTitle = 
         ; Not running or chose to launch new.
         ; Launch the sucker!
         If (StrLen(appArgs) > 0) {
+            ; Launch with Arguments
             Run, %appPath% %appArgs%
         } Else {
+            ; Launch without arguments (otherwise shortcuts couldn't be launched reliably)
             Run, %appPath%
         }
     }
 }
 
 MakeScreenSnip() {
+    ; If shift was held when activating the hotkey open the saved snip in the default png image handler
     GetKeyState, shiftState, Shift
+    ; If control was held when activating the hotkey just open the snippingtool
     GetKeyState, controlState, Control
     If (controlState != "D") {
         ; Store the previous Capture Mode value
