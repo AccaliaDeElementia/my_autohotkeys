@@ -106,6 +106,8 @@ MakeScreenSnip() {
         } Else {
             ; There isn't one. Start it.
             Run, C:\Windows\system32\SnippingTool.exe
+            Sleep, 100 ; It doesn't always activate itself so give it a tenth of a second to show the window, then force activate it
+            WinActivate, ahk_exe SnippingTool.exe
         }
     }
 }
