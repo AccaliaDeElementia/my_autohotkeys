@@ -1,4 +1,5 @@
 #Include %A_ScriptDir%
 #Include Utilities.ahk
 
-cycleWindows("%A_AppData%\..\Local\slack\slack.exe",, "ahk_exe slack.exe")
+Apppath=%A_AppData%\..\Local\slack\slack.exe
+cycleWindows(Apppath,, "ahk_exe slack.exe")

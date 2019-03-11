@@ -75,7 +75,7 @@ MakeScreenSnip() {
         RegRead, captureMode, HKCU, SOFTWARE\Microsoft\Windows\TabletPC\Snipping Tool\CaptureModeSubKey
         ; Set Capture Mode to `2` (Rectangular Snip)
         RegWrite, REG_DWORD, HKCU, SOFTWARE\Microsoft\Windows\TabletPC\Snipping Tool\CaptureModeSubKey,, 2
-        ; Invoke the snipping tool - This will take a rectangular snip andx store it on the clipboard
+        ; Invoke the snipping tool - This will take a rectangular snip and store it on the clipboard
         RunWait, C:\Windows\system32\SnippingTool.exe /clip
         ; Restore the previous Capture Mode value
         RegWrite, REG_DWORD, HKCU, SOFTWARE\Microsoft\Windows\TabletPC\Snipping Tool\CaptureModeSubKey,, %captureMode%
